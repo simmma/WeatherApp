@@ -1,0 +1,32 @@
+<script type="module">
+  import { createApp } from
+    'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+  createApp({
+    data() {
+      return {
+        title: 'Welcome to my Weather App'
+      }
+    }
+  }).mount('#app')
+</script>
+
+<body>
+  <div id="app">
+    <h1>{{ title }}</h1>
+  </div>
+</body>
+
+<style>
+  body {
+      background-color: rgb(0,0,0);
+  }
+  div {
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-right: 150px;
+      margin-left: 80px;
+  }
+   h1 {
+       color: indianred;
+   }
+</style>
