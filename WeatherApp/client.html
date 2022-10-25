@@ -5,7 +5,8 @@
     data() {
       return {
         title: 'Welcome to my Weather App',
-        location: '',
+        newLocation: '',
+        searchedLocation: '',
         display: null
       }
     },
@@ -15,40 +16,111 @@
   }).mount('#app')
   function go() {
     //this.display += "Weather for " + this.location
-    console.log("go: called")
-    let prom = fetch("http://127.0.0.1:3000/location/" + this.location)
+    this.searchedLocation = this.newLocation
+    this.newLocation = ''
+    console.log("go: called for: " + this.searchedLocation)
+    let prom = fetch("http://127.0.0.1:3001/location/" + this.searchedLocation)
       .then(response => response.json())
       .then(response => {
         this.display = response
         console.log(response)
+        // format response
       })
-    this.location = ""
     console.log("go: fetched!")
   }
 </script>
 
 <body>
-  <div id="app">
+  <div class="main-div" id="app">
     <h1>{{ title }}</h1>
     <p>Where are you going?</p>
-    <input v-on:keydown.enter="Go" v-model="location">
+    <input v-on:keydown.enter="Go" v-model="newLocation">
     <button @click="Go">Go!</button>
-    <p id="weatherData">{{ display }}</p>
+    <!--If response is successful-->
+    <span v-if="display != null && display.code == 200">
+      <h3>Displaying 4-day weather for {{ searchedLocation }}</h3>
+      <span v-if="display.isRain">
+        <p>Rain is expected so don't forget to pack for rain! &#127783;</p>
+      </span>
+      <p>Pack for <span v-if="display.isTemp[0]">cold</span>, <span v-if="display.isTemp[1]">mild</span>, <span v-if="display.isTemp[2]">hot</span> weather</p>
+      <div class="ttable">
+        <div class="trow">
+            <div class="day">
+              <p class="date">{{ display.summary.date[0] }}</p>
+              <p class="temp">{{ display.summary.temp[0] }}&deg;C</p>
+              <p class="wind">average windspeed:{{ display.summary.wind[0] }}m/s</p>
+              <p class="rain">total rainfall:{{ display.summary.rain[0] }}mm</p>
+            </div>
+            <div class="day"> 
+              <p class="date">{{ display.summary.date[1] }}</p>
+              <p class="temp">{{ display.summary.temp[1] }}&deg;C</p>
+              <p class="wind">average windspeed:{{ display.summary.wind[1] }}m/s</p>
+              <p class="rain">total rainfall:{{ display.summary.rain[1] }}mm</p>
+            </div>
+            <div class="day">
+              <p class="date">{{ display.summary.date[2] }}</p>
+              <p class="temp">{{ display.summary.temp[2] }}&deg;C</p>
+              <p class="wind">average windspeed:{{ display.summary.wind[2] }}m/s</p>
+              <p class="rain">total rainfall:{{ display.summary.rain[2] }}mm</p> 
+          </div>
+          <div class="day"> 
+            <p class="date">{{ display.summary.date[3] }}</p>
+            <p class="temp">{{ display.summary.temp[3] }}&deg;C</p>
+            <p class="wind">average windspeed:{{ display.summary.wind[3] }}m/s</p>
+            <p class="rain">total rainfall:{{ display.summary.rain[3] }}mm</p>
+          </div>
+        </div>
+    </div>
+     </span>
+    <!--Else-if response is unsuccessful-->
+    <span v-else-if="display != null && display.code == 404">
+      <h3>{{ searchedLocation }} could not be found (or there is a server error :O)...</h3>
+    </span>
   </div>
 </body>
 
 <style>
-  body {
-      background-color: rgb(0,0,0);
+  .ttable {
+    width: 100%; 
+    display: table;
   }
-  div {
+  .trow {
+    display: table-row; 
+    height: 100px;
+  }
+  .day {
+    width: 25%; 
+    display: table-cell;
+    margin: 0;
+  }
+  .main-div {
       margin-top: 100px;
       margin-bottom: 100px;
       margin-right: 150px;
       margin-left: 80px;
   }
+  .temp {
+    font-size: 40px;
+  }
+  .wind {
+    font-size: 12px;
+  }
+  .rain {
+    font-size: 12px;
+  }
+  .date {
+    font-size: 12px;
+    color: pink;
+  }
+  body {
+      background-color: rgb(0,0,0);
+      text-align: center;
+  }
    h1 {
        color: indianred;
+   }
+   h3 {
+    color: pink;
    }
    p {
     color: wheat;
