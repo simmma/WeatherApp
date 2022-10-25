@@ -4,15 +4,36 @@
   createApp({
     data() {
       return {
-        title: 'Welcome to my Weather App'
+        title: 'Welcome to my Weather App',
+        location: '',
+        display: null
       }
+    },
+    methods: {
+      Go:go
     }
   }).mount('#app')
+  function go() {
+    //this.display += "Weather for " + this.location
+    console.log("go: called")
+    let prom = fetch("http://127.0.0.1:3000/location/" + this.location)
+      .then(response => response.json())
+      .then(response => {
+        this.display = response
+        console.log(response)
+      })
+    this.location = ""
+    console.log("go: fetched!")
+  }
 </script>
 
 <body>
   <div id="app">
     <h1>{{ title }}</h1>
+    <p>Where are you going?</p>
+    <input v-on:keydown.enter="Go" v-model="location">
+    <button @click="Go">Go!</button>
+    <p id="weatherData">{{ display }}</p>
   </div>
 </body>
 
@@ -28,5 +49,14 @@
   }
    h1 {
        color: indianred;
+   }
+   p {
+    color: wheat;
+   }
+   button {
+    background-color:indianred;
+   }
+   button:hover {
+    background-color:pink;
    }
 </style>
