@@ -20,7 +20,7 @@
     this.searchedLocation = this.newLocation
     this.newLocation = ''
     console.log("go: called for: " + this.searchedLocation)
-    let prom = fetch("http://127.0.0.1:3001/location/" + this.searchedLocation)
+    let prom = fetch("http://127.0.0.1:3002/location/" + this.searchedLocation)
       .then(response => response.json())
       .then(response => {
         this.display = response
@@ -28,7 +28,7 @@
         // format response
       })
     //   console.log("go: fetched!")
-    // prom = fetch("http://127.0.0.1:3001/pol/" + this.display.lon + "/" + this.display.lat)
+    // prom = fetch("http://127.0.0.1:3002/pol/" + this.display.lon + "/" + this.display.lat)
     //   .then(response => response.json())
     //   .then(response => {
     //     this.pol = response
@@ -65,22 +65,22 @@
               <p class="date">{{ display.summary.date[1] }}</p>
               <p><b class="temp">{{ display.summary.temp[1] }}&deg;C</b></p>
               <p style="font-size: 12px">Average Daily Temperature</p>
-              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
-              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[1] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[1] }}</b>mm</p>
             </div>
             <div class="day">
               <p class="date">{{ display.summary.date[2] }}</p>
               <p><b class="temp">{{ display.summary.temp[2] }}&deg;C</b></p>
               <p style="font-size: 12px">Average Daily Temperature</p>
-              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
-              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[2] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[2] }}</b>mm</p>
             </div>
             <div class="day">
               <p class="date">{{ display.summary.date[3] }}</p>
               <p><b class="temp">{{ display.summary.temp[3] }}&deg;C</b></p>
               <p style="font-size: 12px">Average Daily Temperature</p>
-              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
-              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[3] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[3] }}</b>mm</p>
             </div>
         </div>
     </div>

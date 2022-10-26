@@ -4,7 +4,7 @@ const cors = require('cors')
 const express = require('express')
 const app = express()
 app.use(cors());
-const port = 3001
+const port = 3002
 const https = require("https")
 
 const apiURL = "https://api.openweathermap.org/data/2.5/"
@@ -117,6 +117,8 @@ function locationFun(req, res) {
           }
           res.json(formattedData)
           console.log(formattedData)
+          console.log(apiURL + "air_pollution?lat=" + jsondata.city.coord.lat + "&lon=" + jsondata.city.coord.lon + "&appId=" + apiKey)
+          console.log("/" + jsondata.city.coord.lon + "/" + jsondata.city.coord.lat)
         } catch (e) {
           console.log("error has occurred in server.js");
           console.log(e);
