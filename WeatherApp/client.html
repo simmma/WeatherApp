@@ -8,6 +8,7 @@
         newLocation: '',
         searchedLocation: '',
         display: null
+        // pol: false
       }
     },
     methods: {
@@ -26,6 +27,14 @@
         console.log(response)
         // format response
       })
+    //   console.log("go: fetched!")
+    // prom = fetch("http://127.0.0.1:3001/pol/" + this.display.lon + "/" + this.display.lat)
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     this.pol = response
+    //     console.log(response)
+    //     // format response
+    //   })
     console.log("go: fetched!")
   }
 </script>
@@ -42,33 +51,37 @@
       <span v-if="display.isRain">
         <p>Rain is expected so don't forget to pack for rain! &#127783;</p>
       </span>
-      <p>Pack for <span v-if="display.isTemp[0]">cold</span>, <span v-if="display.isTemp[1]">mild</span>, <span v-if="display.isTemp[2]">hot</span> weather</p>
+      <p>Pack for <span v-if="display.isTemp[0]">cold</span><span v-if="display.isTemp[0] && display.isTemp[1] && display.isTemp[2]">, </span><span v-else-if="display.isTemp[0] && display.isTemp[1] && !display.isTemp[2]"> and </span><span v-if="display.isTemp[1]">mild</span><span v-if="display.isTemp[1] && display.isTemp[2]"> and </span><span v-if="display.isTemp[2]">hot</span> weather</p>
       <div class="ttable">
         <div class="trow">
             <div class="day">
               <p class="date">{{ display.summary.date[0] }}</p>
-              <p class="temp">{{ display.summary.temp[0] }}&deg;C</p>
-              <p class="wind">average windspeed:{{ display.summary.wind[0] }}m/s</p>
-              <p class="rain">total rainfall:{{ display.summary.rain[0] }}mm</p>
+              <p><b class="temp">{{ display.summary.temp[0] }}&deg;C</b></p>
+              <p style="font-size: 12px">Average Daily Temperature</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
             </div>
-            <div class="day"> 
+            <div class="day">
               <p class="date">{{ display.summary.date[1] }}</p>
-              <p class="temp">{{ display.summary.temp[1] }}&deg;C</p>
-              <p class="wind">average windspeed:{{ display.summary.wind[1] }}m/s</p>
-              <p class="rain">total rainfall:{{ display.summary.rain[1] }}mm</p>
+              <p><b class="temp">{{ display.summary.temp[1] }}&deg;C</b></p>
+              <p style="font-size: 12px">Average Daily Temperature</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
             </div>
             <div class="day">
               <p class="date">{{ display.summary.date[2] }}</p>
-              <p class="temp">{{ display.summary.temp[2] }}&deg;C</p>
-              <p class="wind">average windspeed:{{ display.summary.wind[2] }}m/s</p>
-              <p class="rain">total rainfall:{{ display.summary.rain[2] }}mm</p> 
-          </div>
-          <div class="day"> 
-            <p class="date">{{ display.summary.date[3] }}</p>
-            <p class="temp">{{ display.summary.temp[3] }}&deg;C</p>
-            <p class="wind">average windspeed:{{ display.summary.wind[3] }}m/s</p>
-            <p class="rain">total rainfall:{{ display.summary.rain[3] }}mm</p>
-          </div>
+              <p><b class="temp">{{ display.summary.temp[2] }}&deg;C</b></p>
+              <p style="font-size: 12px">Average Daily Temperature</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
+            </div>
+            <div class="day">
+              <p class="date">{{ display.summary.date[3] }}</p>
+              <p><b class="temp">{{ display.summary.temp[3] }}&deg;C</b></p>
+              <p style="font-size: 12px">Average Daily Temperature</p>
+              <p class="wind">Average windspeed: <b style="font-size: 14px">{{ display.summary.wind[0] }}</b>m/s</p>
+              <p class="rain">Total rainfall: <b style="font-size: 14px">{{ display.summary.rain[0] }}</b>mm</p>
+            </div>
         </div>
     </div>
      </span>
@@ -104,9 +117,11 @@
   }
   .wind {
     font-size: 12px;
+    color: rgb(255, 162, 185);
   }
   .rain {
     font-size: 12px;
+    color: rgb(254, 139, 167);
   }
   .date {
     font-size: 12px;
