@@ -8,7 +8,7 @@ const port = 3002
 const https = require("https")
 
 const apiURL = "https://api.openweathermap.org/data/2.5/"
-const apiKey = "ce55cc12159481e25ea6bb2971e2ce57"
+const apiKey = ""
 const apiUnits = "metric"
 
 const path = require("path")
